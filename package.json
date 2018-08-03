@@ -1,0 +1,21 @@
+{
+  "name": "spider-juzi8",
+  "version": "1.0.0",
+  "description": "spider for juzi8 site use nodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "spider",
+    "nodeJS"
+  ],
+  "license": "MIT",
+  "author": "southhill",
+  "dependencies": {
+    "async": "^2.6.0",
+    "cheerio": "^1.0.0-rc.2",
+    "mongoose": "^4.13.7"
+  }
+}
