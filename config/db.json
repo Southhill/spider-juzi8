@@ -1,6 +1,6 @@
 {
     "database": "mongodb",
-    "uri": "mongodb://@localhost:27017/juzi8",
+    "dbUri": "mongodb://@localhost:27017/juzi8",
     "authInfo": {
         "user": "juzi8user",
         "pass": "123456.pwd"
