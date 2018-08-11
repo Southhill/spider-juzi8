@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const { JuziModel, SourceModel } = require('./schemas')
 const { logger, errorLogger } = require('./log')
 
+mongoose.Promise = Promise
 
 class MongooseConf {
     constructor(dbUri, authInfo) {
