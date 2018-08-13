@@ -4,3 +4,6 @@ node_modules
 # vscode
 .vscode
 .history
+
+# log
+logs/*.log
