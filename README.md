@@ -5,13 +5,13 @@
 ## 必需环境
 1. nodejs环境
 2. 安装mongodb数据库
-3. git
+3. git
 
 ## 数据库设置
 [Mac]
 1. 安装mongodb数据库，`brew install mongodb`
-2. 新建数据库文件夹 `mkdir ~/mongodb/db`
-3. 启动mongodb服务，`mongod --dbpath ~/mongodb/db`
+2. 新建数据库文件夹 `mkdir ~/mongodb/db`
+3. 启动mongodb服务，`mongod --dbpath ~/mongodb/db`
 4. 添加数据库用户，启动`mongo`,新建数据库`switch juzi8`， 然后使用`db.createUser()`方法新建用户，参考地址[db.createUser() &mdash; MongoDB Manual](https://docs.mongodb.com/manual/reference/method/db.createUser/index.html)，新建用户的信息与config/db.json下的信息保持一致。
 
 ## 启动
@@ -24,7 +24,7 @@
 
 2. 我要如何处理程序状态，也即全局变量，现在的做法是直接将必要的变量挂载到`global`对象上。当然，这个项目的全局变量只有5,6个而已，但总感觉这样写不优雅。
 
-3. ~~我之前一直以为`class`类在实例化的`constructor`过程中可以使用其原型方法的，结果报错，之后仔细思考过程，感觉我的想法是错误的，个人认为类的实例化应该是：先运行`constructor`函数中的内容，然后返回`this`对象，之后在`this`对象上挂载其原型的方法，因此类在实例化的`constructor`过程中是不能使用其原型方法的。~~正确结论是：**`class`类在实例化的`constructor`过程中是可以使用其原型方法的。**具体参看[这里](https://github.com/Southhill/spider-juzi8/issues/1)
+3. ~~我之前一直以为`class`类在实例化的`constructor`过程中可以使用其原型方法的，结果报错，之后仔细思考过程，感觉我的想法是错误的，个人认为类的实例化应该是：先运行`constructor`函数中的内容，然后返回`this`对象，之后在`this`对象上挂载其原型的方法，因此类在实例化的`constructor`过程中是不能使用其原型方法的~~。正确结论是：**`class`类在实例化的`constructor`过程中是可以使用其原型方法的。**具体参看[这里](https://github.com/Southhill/spider-juzi8/issues/1)
 
 4. 项目添加了日志记录的功能，使用的是`log4js`模块，在进行配置`log.js`的时候, 发现日志不能记录到相应的文件下，后来发现`appenders`对象下的`filename`属性的值是相对于整个项目目录，而不是配置文件所在目录。
 
