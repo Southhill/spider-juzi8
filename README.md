@@ -12,7 +12,7 @@
 1. 安装mongodb数据库，`brew install mongodb`
 2. 新建数据库文件夹 `mkdir ~/mongodb/db`
 3. 启动mongodb服务，`mongod --dbpath ~/mongodb/db`
-4. 添加数据库用户，启动`mongo`,新建数据库`switch juzi8`， 然后使用`db.createUser()`方法新建用户，参考地址[db.createUser() &mdash; MongoDB Manual](https://docs.mongodb.com/manual/reference/method/db.createUser/index.html)，新建用户的信息与config/db.json下的信息保持一致。
+4. 添加数据库用户，启动`mongo`,新建数据库`use juzi8`， 然后使用`db.createUser()`方法新建用户，参考地址[db.createUser() &mdash; MongoDB Manual](https://docs.mongodb.com/manual/reference/method/db.createUser/index.html)，新建用户的信息与config/db.json下的信息保持一致。
 
 ## 启动
 1. `git clone https://github.com/Southhill/spider-juzi8.git && cd spider-juzi8`
@@ -20,7 +20,7 @@
 3. `npm start`
 
 # 开发遇到的问题
-1. 最困扰我的问题是我知道爬虫的入口网址，后面的网址要爬到页面后才能解析并发现，页面爬取是一个异步的过程，所以我要怎样让爬虫解析完网址后自动爬取其他页面，同步代码必然是失败的，异步代码的思路是：先爬取网页，解析网页，存储，发现新的网址，然后开始爬取新网址，直到再没有新发现的网址；一个串联的思路（当然也可以一次爬取所有发现的网址，但整体而言是串联的过程）。因此如果按这个思路是不能用到`for, while`语言功能的。也只能如此，具体思路可查看代码库。
+1. 困扰我的问题是我知道爬虫的入口网址，后面的网址要爬到页面后才能解析并发现，页面爬取是一个异步的过程，所以我要怎样让爬虫解析完网址后自动爬取其他页面，同步代码必然是失败的，异步代码的思路是：先爬取网页，解析网页，存储，发现新的网址，然后开始爬取新网址，直到再没有新发现的网址；一个串联的思路（当然也可以一次爬取所有发现的网址，但整体而言是串联的过程）。因此如果按这个思路是不能用到`for, while`语言功能的。也只能如此，具体思路可查看代码库。
 
 2. 我要如何处理程序状态，也即全局变量，现在的做法是直接将必要的变量挂载到`global`对象上。当然，这个项目的全局变量只有5,6个而已，但总感觉这样写不优雅。
 
