@@ -19,6 +19,6 @@
     "log4js": "^3.0.4",
     "mongoose": "^4.13.7",
     "superagent": "^3.8.3",
-    "gv": "git://github.com/southhill/node-gv.git"
+    "node-gv": "git+https://github.com/southhill/node-gv.git"
   }
 }

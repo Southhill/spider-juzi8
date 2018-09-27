@@ -1,5 +1,6 @@
 const superagent = require('superagent')
 const cheerio = require('cheerio')
+const gv = require('node-gv')
 
 const { logger, errorLogger } = require('../log')
 const { SourceModel } = require('../schemas')
@@ -9,10 +10,10 @@ class SourceSpider {
     constructor(url) {
         this.url = url,
         this.finishHandler = () => {
-            if (global.toSpiderSourceUrlList.length) {
-                const url = global.toSpiderSourceUrlList.shift()
+            if (gv.entitySize('toSpiderSourceUrlList')) {
+                const url = gv.shift('toSpiderSourceUrlList')
                 new SourceSpider(url)
-                global.spideredUrlList.push(url)
+                gv.push('spideredUrlList', url)
             } else {
                 if (typeof SourceSpider.finished === 'function') {
                     SourceSpider.finished()
@@ -26,7 +27,7 @@ class SourceSpider {
         superagent.get(self.url).set('referer', baseUrl).end(function (err, res) {
             // 抛错拦截
             if (err) {
-                global.spideredFailUrlList.push({ url: self.url, reason: '爬取失败', type: 'source' })
+                gv.push('spideredFailUrlList', { url: self.url, reason: '爬取失败', type: 'source' })
                 errorLogger.error(`爬取网址${self.url}失败:\n ${err}`)
             }
             logger.info(`爬取网址：${self.url}结束.`)
@@ -57,7 +58,7 @@ class SourceSpider {
         SourceModel.create(this.resultList).then(res => {
             logger.info(`成功归档网址：${this.url}分析后的内容`)
         }).catch(err => {
-            global.spideredFailUrlList.push({ url: this.url, reason: '归档失败', type: 'source' })
+            gv.push('spideredFailUrlList', { url: this.url, reason: '归档失败', type: 'source' })
             errorLogger.error(`归档网址：${this.url}失败:\n${err}`)
         })
         this.finishHandler()
