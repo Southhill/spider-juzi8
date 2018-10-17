@@ -29,7 +29,7 @@ log4js.configure({
         default: { appenders: ['console'], level: 'info' },
         spider: { appenders: ['console', 'spider'], level: 'info' },
         summary: { appenders: ['console', 'summary'], level: 'info' },
-        error: { appenders: ['error'], level: 'error' },
+        error: { appenders: ['console', 'error'], level: 'error' },
     }
 })
 

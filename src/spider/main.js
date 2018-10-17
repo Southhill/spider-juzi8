@@ -1,19 +1,18 @@
-const superagent = require('superagent')
 const cheerio = require('cheerio')
 const gv = require('node-gv')
 
+const request = require('../utils/request')
 const { logger, errorLogger } = require('../log')
 const { JuziModel } = require('../schemas')
-const { spiderUrl } = require('../../config/spider.json')
-const { baseUrl } = require('../const')
+const { baseUrl } = require('../const/url')
 
 class MainSpider {
-    constructor(url, cb) {
+    constructor(url) {
         this.url = url,
         this.finishHandler = () => {
-            if (gv.entitySize(toSpiderUrlList)) {
+            if (gv.entitySize('toSpiderUrlList')) {
                 const url = gv.shift('toSpiderUrlList')
-                // 在发现网址的过程中已经检查了网址的有效性，所以不需要再次检测
+                // 在发现网址的过程中已经检查了网址的有效性，所以不需要再次检测，直接可以消费。
                 new MainSpider(url)
                 gv.push('spideredUrlList', url)
             } else {
@@ -25,15 +24,17 @@ class MainSpider {
         this.resultList = []
 
         logger.info(`开始爬取网址：${this.url}`)
+        
         const self = this
-        superagent.get(self.url).set('referer', spiderUrl).end(function (err, res) {
+        request(self.url, function (err, res) {
             // 抛错拦截
             if (err) {
                 gv.push('spideredFailUrlList', { url: self.url, reason: '爬取失败', type: 'main' })
                 errorLogger.error(`爬取网址${self.url}失败:\n ${err}`)
+            } else {
+                self.analysisPage(res)
+                logger.info(`爬取网址：${self.url}结束.`)
             }
-            logger.info(`爬取网址：${self.url}结束.`)
-            self.analysisPage(res)
         })
     }
 

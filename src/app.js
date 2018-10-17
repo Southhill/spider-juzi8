@@ -12,7 +12,7 @@ const { entryUrl } = spiderConf
 
 // 添加 global var
 gv.addEntity({
-    toSpiderSourceUrlList: [entryUrl], // 待爬取的网址类别1
+    toSpiderUrlList: [entryUrl], // 待爬取的网址类别1
     toSpiderSourceUrlList: [], // 待爬取的网址类别2
     spideredFailUrlList: [], // 爬取失败的网址
     spideredUrlList: [], // 已爬取的网址

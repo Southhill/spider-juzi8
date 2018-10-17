@@ -12,13 +12,14 @@
     "nodeJS"
   ],
   "license": "MIT",
-  "author": "southhill",
+  "author": "Cao",
   "dependencies": {
     "async": "^2.6.0",
     "cheerio": "^1.0.0-rc.2",
     "log4js": "^3.0.4",
     "mongoose": "^4.13.7",
+    "node-gv": "git+https://github.com/southhill/node-gv.git",
     "superagent": "^3.8.3",
-    "node-gv": "git+https://github.com/southhill/node-gv.git"
+    "superagent-proxy": "^2.0.0"
   }
 }

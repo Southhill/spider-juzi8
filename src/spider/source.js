@@ -1,10 +1,10 @@
-const superagent = require('superagent')
 const cheerio = require('cheerio')
 const gv = require('node-gv')
 
+const request = require('../utils/request')
 const { logger, errorLogger } = require('../log')
 const { SourceModel } = require('../schemas')
-const { baseUrl } = require('../const')
+const { baseUrl } = require('../const/url')
 
 class SourceSpider {
     constructor(url) {
@@ -23,15 +23,17 @@ class SourceSpider {
         this.resultList = []
 
         logger.info(`开始爬取网址：${this.url}`)
+        
         const self = this
-        superagent.get(self.url).set('referer', baseUrl).end(function (err, res) {
+        request(self.url, function (err, res) {
             // 抛错拦截
             if (err) {
                 gv.push('spideredFailUrlList', { url: self.url, reason: '爬取失败', type: 'source' })
                 errorLogger.error(`爬取网址${self.url}失败:\n ${err}`)
+            } else {
+                self.analysisPage(res)
+                logger.info(`爬取网址：${self.url}结束.`)
             }
-            logger.info(`爬取网址：${self.url}结束.`)
-            self.analysisPage(res)
         })
     }
 
